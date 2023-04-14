@@ -5,7 +5,7 @@ export default function Document() {
   return (
     <Html lang="en">
       <Head />
-      <body className={clsx("bg-[#1F1F1F]", "text-white")}>
+      <body className={clsx("bg-[#0d1117]", "text-white")}>
         <Main />
         <NextScript />
       </body>

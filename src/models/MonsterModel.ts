@@ -1,23 +1,22 @@
-import { ObjectCopier } from "@/models/ObjectCopier";
+import { BaseModel } from "@/models/BaseModel";
+import { MonsterId } from "@/types/MonsterId";
 import { Status } from "@/types/Status";
 import uuid from "react-uuid";
 
-export class MonsterModel extends ObjectCopier {
+export class MonsterModel extends BaseModel<MonsterId> {
   /**
-   * コンストラクタ
-   * createメソッドを使用してインスタンスを作成すること
+   * Constructor
+   * You must create an instance with the static method `create`.
    * ```
    * export const dummyMonster = MonsterModel.create({ id: "dummyId" });
    * ```
-   * @param id ID
-   * @param name 名前
-   * @param flavor フレーバーテキスト
-   * @param status ステータス
-   * @param skills スキル
-   * @param feature モンスターの特徴
+   * @param name name
+   * @param flavor flavor text
+   * @param status status
+   * @param skills skills
+   * @param feature monster feature
    */
   private constructor(
-    public readonly id: string = "",
     public readonly name: string = "",
     public readonly flavor: string = "",
     public readonly status: Status = {
@@ -30,11 +29,11 @@ export class MonsterModel extends ObjectCopier {
     public readonly skills: string[] = [],
     public readonly feature: string = "",
   ) {
-    super();
+    super("");
   }
 
   /**
-   * インスタンス生成
+   * Create instance
    * @param modifyObject modifyObject
    * @return {MonsterModel} MonsterModel
    */
@@ -46,7 +45,7 @@ export class MonsterModel extends ObjectCopier {
 
   /**
    * fromJson
-   * @param feature モンスターの特徴
+   * @param feature monster feature
    * @param json json
    * @return {MonsterModel} MonsterModel
    */

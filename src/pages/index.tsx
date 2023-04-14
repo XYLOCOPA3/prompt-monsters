@@ -1,7 +1,8 @@
-import { Result } from "@/components/elements/Result";
-import { Title } from "@/components/elements/Title";
-import { MonsterGenerator } from "@/features/monster";
-import clsx from "clsx";
+import Head from "next/head";
+import { Header } from "@/components/layouts/Header";
+import { Main } from "@/components/layouts/Main";
+import { MainHome } from "@/components/layouts/Main/MainIndex";
+import Div100vh from "react-div-100vh";
 
 /**
  * Home
@@ -9,10 +10,23 @@ import clsx from "clsx";
  */
 export default function Home() {
   return (
-    <main className={clsx("flex", "items-center", "flex-col")}>
-      <Title className={clsx("m-[20px]")} />
-      <MonsterGenerator className={clsx("my-[20px]", "w-[300px]")} />
-      <Result className={clsx("w-[90%]", "mb-[20px]", "max-w-[700px]")} />
-    </main>
+    <>
+      <Head>
+        <title>Prompt Monsters</title>
+        <meta
+          property="og:url"
+          content={`https://${process.env.NEXT_PUBLIC_HOSTNAME}/`}
+        />
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content="Prompt Monsters" />
+        <meta property="og:description" content="This is Prompt Monsters." />
+      </Head>
+      <Div100vh>
+        <Header />
+        <Main>
+          <MainHome />
+        </Main>
+      </Div100vh>
+    </>
   );
 }
