@@ -4,14 +4,14 @@ import clsx from "clsx";
 export type TitleProps = BaseProps;
 
 /**
- * タイトル
+ * Title
  * @keit0728
- * @param className 親要素から指定されるスタイル
+ * @param className Style from parent element
  */
 export const Title = ({ className }: TitleProps) => {
   return (
-    <div className={clsx("text-4xl", "font-bold", className)}>
-      Prompt Dungeons
+    <div className={clsx("text-2xl", "font-bold", className)}>
+      Prompt Monsters
     </div>
   );
 };
