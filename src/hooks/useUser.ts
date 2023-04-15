@@ -2,10 +2,11 @@ import { CHAINID_LINEA } from "@/const/chainParams";
 import { dummyUserState } from "@/const/dummy";
 import { ClientWallet } from "@/lib/wallet";
 import { UserState, userState } from "@/stores/userState";
+import { UserId } from "@/types/UserId";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 
 export interface UserController {
-  login: () => Promise<void>;
+  login: () => Promise<UserId>;
 }
 
 export const useUserValue = (): UserState => {
@@ -18,13 +19,14 @@ export const useUserController = (): UserController => {
   /**
    * Login
    */
-  const login = async (): Promise<void> => {
+  const login = async (): Promise<UserId> => {
     const wallet = await ClientWallet.instance();
     const chainId = (await wallet.getChainId()).toLowerCase();
     if (chainId !== CHAINID_LINEA)
       await wallet.switchChainIfNotExistAdd(CHAINID_LINEA);
-    const addresses = await wallet.connect();
-    setUser(dummyUserState.copyWith({ id: addresses[0] }));
+    const address = (await wallet.connect())[0];
+    setUser(dummyUserState.copyWith({ id: address }));
+    return address;
   };
 
   const controller: UserController = {

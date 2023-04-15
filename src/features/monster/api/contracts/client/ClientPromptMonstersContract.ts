@@ -1,11 +1,13 @@
 import { BasePromptMonstersContract } from "@/features/monster/api/contracts/BasePromptMonstersContract";
 import { ClientWallet } from "@/lib/wallet";
 import { MonsterModel } from "@/models/MonsterModel";
+import { UserId } from "@/types/UserId";
 import { ethers } from "ethers";
 import {
   PromptMonsters,
   PromptMonsters__factory,
 } from "types/ethers-contracts";
+import { IPromptMonsters } from "types/ethers-contracts/PromptMonsters";
 
 export class ClientPromptMonstersContract extends BasePromptMonstersContract {
   private _writer?: PromptMonsters;
@@ -41,7 +43,37 @@ export class ClientPromptMonstersContract extends BasePromptMonstersContract {
   }
 
   /**
-   * Mint
+   * getMonstersTotalSupply
+   */
+  getMonstersTotalSupply = async (): Promise<number> => {
+    return Number(await this._reader.getMonstersTotalSupply());
+  };
+
+  /**
+   * getOwnerToTokenIds
+   * @return {Promise<UserId>} user id
+   */
+  getOwnerToTokenIds = async (userId: UserId): Promise<bigint[]> => {
+    const ids = await this._reader.getOwnerToTokenIds(userId);
+    const tokenIds: bigint[] = [];
+    for (let i = 0; i < ids.length; i++) {
+      tokenIds.push(ids[i]);
+    }
+    return tokenIds;
+  };
+
+  /**
+   * getOwnerToTokenIds
+   * @return {Promise<bigint[]>} token ids
+   */
+  getMonsters = async (
+    tokenIds: bigint[],
+  ): Promise<IPromptMonsters.MonsterStructOutput[]> => {
+    return await this._reader.getMonsters(tokenIds);
+  };
+
+  /**
+   * Get
    * @return {Promise<ethers.ContractTransactionReceipt | null>} transaction receipt
    */
   mint = async (

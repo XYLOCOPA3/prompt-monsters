@@ -48,6 +48,17 @@ interface IPromptMonsters is IERC721Upgradeable {
   // Getter
   // --------------------------------------------------------------------------------
 
+  /// @notice Get monsters total supply
+  /// @return totalSupply token IDs
+  function getMonstersTotalSupply() external view returns (uint256 totalSupply);
+
+  /// @notice Get token IDs from owner address
+  /// @param owner owner
+  /// @return tokenIds token IDs
+  function getOwnerToTokenIds(
+    address owner
+  ) external view returns (uint256[] memory tokenIds);
+
   /// @notice Get monsters
   /// @param tokenIds_ token IDs
   /// @return monsters monsters

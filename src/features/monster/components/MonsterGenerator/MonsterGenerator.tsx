@@ -2,8 +2,11 @@ import { useState } from "react";
 import { ListBox } from "@/components/elements/ListBox";
 import { FeatureInput, GenerateButton } from "@/features/monster";
 import { useMonsterController } from "@/hooks/useMonster";
+import { languageState } from "@/stores/languageState";
+import { monsterMintedState } from "@/stores/monsterMintedState";
 import { BaseProps } from "@/types/BaseProps";
 import clsx from "clsx";
+import { useRecoilState, useSetRecoilState } from "recoil";
 
 let feature = "";
 const languages = ["English", "Japanese", "Korean", "Chinese"];
@@ -20,7 +23,9 @@ export const MonsterGenerator = ({ className }: MonsterGeneratorProps) => {
   const characterController = useMonsterController();
   const [loading, setLoading] = useState(false);
   const [maxLengthOver, setMaxLengthOver] = useState(false);
-  const [language, setLanguage] = useState(languages[0]);
+  // const [language, setLanguage] = useState(languages[0]);
+  const [language, setLanguage] = useRecoilState(languageState);
+  const setMonsterMinted = useSetRecoilState(monsterMintedState);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (_countCharacters(e.target.value) <= maxLength) {
@@ -41,7 +46,7 @@ export const MonsterGenerator = ({ className }: MonsterGeneratorProps) => {
     setLoading(true);
     try {
       await characterController.generate(feature, language);
-      setLoading(false);
+      setMonsterMinted(false);
     } catch (error) {
       alert("Invalid monster name.");
       console.error(error);

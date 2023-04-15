@@ -24,6 +24,15 @@ export const Result = ({ className }: ResultProps) => {
         className,
       )}
     >
+      {monster.id === "" ? (
+        <></>
+      ) : (
+        <>
+          <div className={clsx("text-sm", "text-gray-400")}># Id</div>
+          <div>{monster.id}</div>
+          <br />
+        </>
+      )}
       <div className={clsx("text-sm", "text-gray-400")}># Name</div>
       <div>{monster.name}</div>
       <br />

@@ -1,7 +1,6 @@
 import { BaseModel } from "@/models/BaseModel";
 import { MonsterId } from "@/types/MonsterId";
 import { Status } from "@/types/Status";
-import uuid from "react-uuid";
 
 export class MonsterModel extends BaseModel<MonsterId> {
   /**
@@ -63,7 +62,6 @@ export class MonsterModel extends BaseModel<MonsterId> {
     lv: number = 1,
   ): MonsterModel {
     return MonsterModel.create({
-      id: uuid(),
       name: json.name,
       flavor: json.flavor,
       skills: json.skills,
