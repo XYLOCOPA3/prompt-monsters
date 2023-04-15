@@ -1,4 +1,4 @@
-import { CHAINID_MUMBAI } from "@/const/chainParams";
+import { CHAINID_LINEA, CHAINID_MUMBAI } from "@/const/chainParams";
 import { ethers } from "ethers";
 
 export type AddEthereumChainParameter = {
@@ -25,6 +25,18 @@ export const chainsParams: { [key: string]: AddEthereumChainParameter } = {
     },
     rpcUrls: ["https://rpc-mumbai.maticvigil.com/"],
     blockExplorerUrls: ["https://mumbai.polygonscan.com/"],
+    iconUrls: [],
+  },
+  "0xe704": {
+    chainId: CHAINID_LINEA,
+    chainName: "Linea Goerli test network",
+    nativeCurrency: {
+      name: "LineaETH",
+      symbol: "ETH",
+      decimals: 18,
+    },
+    rpcUrls: ["https://rpc.goerli.linea.build"],
+    blockExplorerUrls: ["https://explorer.goerli.linea.build"],
     iconUrls: [],
   },
 };
@@ -97,7 +109,7 @@ export class ClientWallet {
     try {
       await this.switchChain(chainId);
     } catch (e) {
-      console.error(e);
+      console.log(e);
       console.log("Chain is not exist, add chain");
       await this.addChain(chainsParams[chainId]);
     }
