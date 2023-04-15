@@ -1,4 +1,3 @@
-import { PROMPT_MONSTER_ADDRESS } from "@/const/contract";
 import { BasePromptMonstersContract } from "@/features/monster/api/contracts/BasePromptMonstersContract";
 import { ClientWallet } from "@/lib/wallet";
 import { MonsterModel } from "@/models/MonsterModel";
@@ -27,13 +26,15 @@ export class ClientPromptMonstersContract extends BasePromptMonstersContract {
   public static async instance(): Promise<ClientPromptMonstersContract> {
     const wallet = await ClientWallet.instance();
     const reader = PromptMonsters__factory.connect(
-      PROMPT_MONSTER_ADDRESS,
+      // PROMPT_MONSTER_ADDRESS,
+      "0xA821411988D5E9dbf6614fDd1eD81d19392e0b93",
       wallet.provider,
     );
     return new ClientPromptMonstersContract(
       wallet,
       reader,
-      PROMPT_MONSTER_ADDRESS,
+      // PROMPT_MONSTER_ADDRESS,
+      "0xA821411988D5E9dbf6614fDd1eD81d19392e0b93",
     );
   }
 
