@@ -1,26 +1,28 @@
+import { ClientPromptMonstersContract } from "@/features/monster/api/contracts";
 import { MonsterModel } from "@/models/MonsterModel";
-import { CharacterState, characterState } from "@/stores/characterState";
+import { MonsterState, monsterState } from "@/stores/monsterState";
 import axios from "axios";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 
-export interface CharacterController {
+export interface MonsterController {
   generate: (feature: string, language: string) => Promise<void>;
+  mint: (monster: MonsterModel) => Promise<void>;
 }
 
-export const useCharacterValue = (): CharacterState => {
-  return useRecoilValue(characterState);
+export const useMonsterValue = (): MonsterState => {
+  return useRecoilValue(monsterState);
 };
 
-export const useCharacterController = (): CharacterController => {
-  const setCharacter = useSetRecoilState(characterState);
+export const useMonsterController = (): MonsterController => {
+  const setMonster = useSetRecoilState(monsterState);
 
   /**
-   * モンスターを生成する
-   * @param feature モンスターの特徴
-   * @param language 出力言語
+   * Generate monster
+   * @param feature monster feature
+   * @param language output language
    */
   const generate = async (feature: string, language: string): Promise<void> => {
-    const res = await axios.post("/api/generate-character", {
+    const res = await axios.post("/api/generate-monster", {
       feature,
       language,
     });
@@ -28,19 +30,30 @@ export const useCharacterController = (): CharacterController => {
     const content = res.data.result[0].message.content;
     const monster = JSON.parse(content);
     if (monster.isExisting)
-      throw new Error("useCharacter.ts: This monster is existing.");
+      throw new Error("useMonster.ts: This monster is existing.");
     if (!monster.isFiction)
-      throw new Error("useCharacter.ts: This monster is non fiction.");
-    setCharacter(MonsterModel.fromData(feature, monster));
+      throw new Error("useMonster.ts: This monster is non fiction.");
+    console.log(monster);
+    setMonster(MonsterModel.fromData(feature, monster));
   };
 
-  const controller: CharacterController = {
+  /**
+   * Mint monster
+   * @param monster monster model
+   */
+  const mint = async (monster: MonsterModel): Promise<void> => {
+    const promptMonster = await ClientPromptMonstersContract.instance();
+    await promptMonster.mint(monster);
+  };
+
+  const controller: MonsterController = {
     generate,
+    mint,
   };
   return controller;
 };
 
-export const useCharacterState = (): [CharacterState, CharacterController] => [
-  useCharacterValue(),
-  useCharacterController(),
+export const useMonsterState = (): [MonsterState, MonsterController] => [
+  useMonsterValue(),
+  useMonsterController(),
 ];

@@ -33,3 +33,16 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# hardhat
+contracts/prompt-monsters/node_modules
+contracts/prompt-monsters/.env
+contracts/prompt-monsters/coverage
+contracts/prompt-monsters/coverage.json
+contracts/prompt-monsters/typechain
+contracts/prompt-monsters/typechain-types
+contracts/prompt-monsters/cache
+contracts/prompt-monsters/artifacts
+
+# typechain
+types/

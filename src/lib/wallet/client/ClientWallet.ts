@@ -102,6 +102,22 @@ export class ClientWallet {
       await this.addChain(chainsParams[chainId]);
     }
   };
+
+  /**
+   * Get connected addresses
+   * @return {Promise<string[]>} connected addresses
+   */
+  getConnectedAddresses = async (): Promise<string[]> => {
+    return await this.provider.send("eth_accounts", []);
+  };
+
+  /**
+   * Get signer
+   * @return {Promise<ethers.JsonRpcSigner>} signer
+   */
+  getSigner = async (): Promise<ethers.JsonRpcSigner> => {
+    return await this.provider.getSigner();
+  };
 }
 
 /**

@@ -1,23 +1,23 @@
 import { useState } from "react";
 import { ListBox } from "@/components/elements/ListBox";
 import { FeatureInput, GenerateButton } from "@/features/monster";
-import { useCharacterController } from "@/hooks/useMonster";
+import { useMonsterController } from "@/hooks/useMonster";
 import { BaseProps } from "@/types/BaseProps";
 import clsx from "clsx";
 
 let feature = "";
-const languages = ["Japanese", "English", "Korean", "Chinese"];
+const languages = ["English", "Japanese", "Korean", "Chinese"];
 const maxLength = 30;
 
 export type MonsterGeneratorProps = BaseProps;
 
 /**
- * モンスター出力
+ * Monster generator
  * @keit0728
- * @param className 親要素から指定されるスタイル
+ * @param className Style from parent element
  */
 export const MonsterGenerator = ({ className }: MonsterGeneratorProps) => {
-  const characterController = useCharacterController();
+  const characterController = useMonsterController();
   const [loading, setLoading] = useState(false);
   const [maxLengthOver, setMaxLengthOver] = useState(false);
   const [language, setLanguage] = useState(languages[0]);
