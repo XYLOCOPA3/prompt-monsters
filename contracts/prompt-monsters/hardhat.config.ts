@@ -22,6 +22,10 @@ const config: HardhatUserConfig = {
       url: POLYGON_MUMBAI_ALCHEMY_KEY,
       accounts: [PRIVATE_KEY as string],
     },
+    linea: {
+      url: `https://rpc.goerli.linea.build/`,
+      accounts: [PRIVATE_KEY as string],
+    },
   },
   etherscan: {
     apiKey: POLYGONSCAN_API,
