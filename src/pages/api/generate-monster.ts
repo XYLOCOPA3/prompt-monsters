@@ -22,7 +22,7 @@ export default async function handler(
   }
 
   const feature = req.body.feature || "";
-  const language = req.body.language || "Japanese";
+  const language = req.body.language || "English";
   if (feature.trim().length === 0) {
     res.status(400).json({
       error: {
@@ -57,7 +57,7 @@ const generatePrompt = (feature: string, language: string): string => {
 
 Example:
 feature="A yellow bear that loves honey"
-{"name":"Winnie the Pooh","flavor":"A bear with a relaxed personality who loves honey. He has a kind heart and is considerate of his friends.","status":{"ATK":1,"DEF":3,"INT":2,"MGR":4,"AGL":1},"skills":["Honey Attack","Hug","Healing Song"],"isFiction":true,"isExisting":true}
+{"name":"Winnie the Pooh","flavor":"A bear with a relaxed personality who loves honey. He has a kind heart and is considerate of his friends.","status":{"HP":10,"ATK":1,"DEF":3,"INT":2,"MGR":4,"AGL":1},"skills":["Honey Attack","Hug","Healing Song"],"isFiction":true,"isExisting":true}
 
 feature="${feature}"`;
 };

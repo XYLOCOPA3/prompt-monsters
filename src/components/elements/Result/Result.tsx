@@ -1,16 +1,16 @@
-import { useCharacterValue } from "@/hooks/useMonster";
+import { useMonsterValue } from "@/hooks/useMonster";
 import { BaseProps } from "@/types/BaseProps";
 import clsx from "clsx";
 
 export type ResultProps = BaseProps;
 
 /**
- * 出力結果
+ * Result of monster generator
  * @keit0728
- * @param className 親要素から指定されるスタイル
+ * @param className Style from parent element
  */
 export const Result = ({ className }: ResultProps) => {
-  const monster = useCharacterValue();
+  const monster = useMonsterValue();
 
   if (monster.name === "") return <></>;
   return (
@@ -32,9 +32,9 @@ export const Result = ({ className }: ResultProps) => {
       <br />
       <div className={clsx("text-sm", "text-gray-400")}># Status</div>
       <div>
-        ATK: {monster.status.ATK} / DEF: {monster.status.DEF} / INT:{" "}
-        {monster.status.INT} / MGR: {monster.status.MGR} / AGL:{" "}
-        {monster.status.AGL}
+        HP: {monster.status.HP} / ATK: {monster.status.ATK} / DEF:{" "}
+        {monster.status.DEF} / INT: {monster.status.INT} / MGR:{" "}
+        {monster.status.MGR} / AGL: {monster.status.AGL}
       </div>
       <br />
       <div className={clsx("text-sm", "text-gray-400")}># Skills</div>

@@ -3,12 +3,17 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "predev": "npm run format",
+    "predev": "npm run format && npm run move-abi",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "format": "prettier --write '**/*.js' '**/*.ts' '**/*.tsx' '**/*.json' '**/*.yml' --ignore-path .gitignore && npm run lint"
+    "format": "prettier --write '**/*.js' '**/*.ts' '**/*.tsx' '**/*.json' '**/*.yml' '**/*.sol' --ignore-path .gitignore && npm run lint",
+    "typechain": "typechain --target ethers-v6 artifacts/*.json",
+    "premove-abi": "cd contracts/prompt-monsters && npm run compile",
+    "move-abi-prompt-monsters": "rm -rf artifacts/PromptMonsters.json && cd contracts/prompt-monsters && cp -rf artifacts/contracts/prompt-monsters/PromptMonsters.sol/PromptMonsters.json ../../artifacts/PromptMonsters.json",
+    "move-abi": "npm run move-abi-prompt-monsters",
+    "postmove-abi": "npm run typechain"
   },
   "dependencies": {
     "@headlessui/react": "^1.7.14",
@@ -34,6 +39,7 @@
   },
   "devDependencies": {
     "@trivago/prettier-plugin-sort-imports": "^4.1.1",
+    "@typechain/ethers-v6": "^0.3.0",
     "@typescript-eslint/parser": "^5.58.0",
     "eslint-config-prettier": "^8.8.0",
     "eslint-import-resolver-typescript": "^3.5.5",
@@ -42,6 +48,8 @@
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-unused-imports": "^2.0.0",
     "next-intercept-stdout": "^1.0.1",
-    "prettier": "^2.8.7"
+    "prettier": "^2.8.7",
+    "prettier-plugin-solidity": "^1.1.3",
+    "typechain": "^8.1.1"
   }
 }

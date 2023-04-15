@@ -29,7 +29,7 @@ jobs:
           rm -rf ./.next/cache
 
       - name: Zip artifact for deployment
-        run: zip release.zip ./* .next -qr
+        run: zip release.zip ./* .next -qr -x contracts/\* .git/\* .github/\* .next/cache/\*
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v3
