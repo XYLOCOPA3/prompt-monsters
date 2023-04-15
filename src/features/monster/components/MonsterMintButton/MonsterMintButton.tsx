@@ -2,10 +2,11 @@ import { useState } from "react";
 import { Button } from "@/components/elements/Button";
 import { useMonsterState } from "@/hooks/useMonster";
 import { useUserState } from "@/hooks/useUser";
+import { monsterMintedState } from "@/stores/monsterMintedState";
 import { userInitState } from "@/stores/userInitState";
 import { BaseProps } from "@/types/BaseProps";
 import clsx from "clsx";
-import { useRecoilValue } from "recoil";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 
 export type MonsterMintButtonProps = BaseProps;
 
@@ -18,9 +19,9 @@ export type MonsterMintButtonProps = BaseProps;
 export const MonsterMintButton = ({ className }: MonsterMintButtonProps) => {
   const [user, userController] = useUserState();
   const [monster, monsterController] = useMonsterState();
-
   const userInit = useRecoilValue(userInitState);
   const [loading, setLoading] = useState(false);
+  const setMonsterMinted = useSetRecoilState(monsterMintedState);
 
   /**
    * Click event
@@ -30,6 +31,7 @@ export const MonsterMintButton = ({ className }: MonsterMintButtonProps) => {
     try {
       if (user.id === "") await userController.login();
       await monsterController.mint(monster);
+      setMonsterMinted(true);
     } catch (e) {
       console.error(e);
       alert("Failed to mint.");

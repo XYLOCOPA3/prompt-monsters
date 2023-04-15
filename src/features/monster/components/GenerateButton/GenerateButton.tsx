@@ -9,7 +9,7 @@ export type GenerateButtonProps = {
 } & BaseProps;
 
 /**
- * Home
+ * GenerateButton
  * @keit0728
  * @param className 親要素から指定されるスタイル
  * @param loading ローディング中かどうか
